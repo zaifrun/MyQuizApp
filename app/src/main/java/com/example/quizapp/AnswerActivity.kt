@@ -116,10 +116,6 @@ class AnswerActivity : ComponentActivity() {
                                     setResult(Activity.RESULT_OK, data)
                                     super.finish()
 
-                                    /* val question = QuestionAnswer(question = myQuestion)
-                                     val intent = Intent(applicationContext, AnswerActivity::class.java)
-                                     intent.putExtra("data", question)
-                                     applicationContext.startActivity(intent)*/
                                 }) {
                                 Text(text = "Give answer", fontSize = 36.sp)
                             }

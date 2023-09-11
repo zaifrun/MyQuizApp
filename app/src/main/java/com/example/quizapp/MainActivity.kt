@@ -1,6 +1,7 @@
 package com.example.quizapp
 
 import android.content.Intent
+import android.net.Uri
 import android.os.Bundle
 import android.util.Log
 import androidx.activity.ComponentActivity
@@ -47,16 +48,16 @@ class MainActivity : ComponentActivity() {
 
         setContent {
             var myQuestion by remember { mutableStateOf("") }
-            var myAnswer by remember { mutableStateOf("")}
+            var myAnswer by remember { mutableStateOf("") }
             val context = LocalContext.current
             val startLauncher = rememberLauncherForActivityResult(
                 ActivityResultContracts.StartActivityForResult()
             ) {
                 intent = it.data
-                if (intent?.extras!=null)
-                {
+                if (intent?.extras != null) {
                     val qa = intent.extras!!.getParcelable<QuestionAnswer>("data")
-                    if (qa!=null) {
+                    // val qa = intent.extras!!.getParcelable("data",QuestionAnswer::class.java)
+                    if (qa != null) {
                         myAnswer = qa.answer
                         Log.d("qa", qa.toString())
                     }
@@ -130,7 +131,11 @@ class MainActivity : ComponentActivity() {
                             }
                         }
 
-                        Row(Modifier.align(alignment = Alignment.CenterHorizontally).padding(20.dp))
+                        Row(
+                            Modifier
+                                .align(alignment = Alignment.CenterHorizontally)
+                                .padding(20.dp)
+                        )
                         {
                             Text(
                                 text = "Answer received: $myAnswer",
@@ -138,6 +143,61 @@ class MainActivity : ComponentActivity() {
                                 style = typography.labelMedium,
                                 fontSize = 22.sp
                             )
+                        }
+
+                        Row(
+                            Modifier
+                                .align(alignment = Alignment.CenterHorizontally)
+                                .padding(20.dp)
+                        )
+                        {
+                            Button(
+                                onClick = {
+                                    val intent = Intent(
+                                        Intent.ACTION_VIEW,
+                                        Uri.parse("geo:56.119605, 10.158907")
+                                    )
+                                    startActivity(intent)
+                                }) {
+                                Text(text = "Start Map", fontSize = 36.sp)
+                            }
+                        }
+
+                        Row(
+                            Modifier
+                                .align(alignment = Alignment.CenterHorizontally)
+                                .padding(20.dp)
+                        )
+                        {
+                            Button(
+                                onClick = {
+
+                                    val intent = Intent(
+                                        Intent.ACTION_DIAL,
+                                        Uri.parse("tel:+82345623")
+                                    )
+                                    startActivity(intent)
+                                }) {
+                                Text(text = "Phone call", fontSize = 36.sp)
+                            }
+                        }
+
+                        Row(
+                            Modifier
+                                .align(alignment = Alignment.CenterHorizontally)
+                                .padding(20.dp)
+                        )
+                        {
+                            Button(
+                                onClick = {
+                                    val intent = Intent(
+                                        Intent.ACTION_VIEW,
+                                        Uri.parse("http://www.dr.dk")
+                                    )
+                                    startActivity(intent)
+                                }) {
+                                Text(text = "Browse web", fontSize = 36.sp)
+                            }
                         }
 
 
