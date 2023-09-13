@@ -39,9 +39,13 @@ class AnswerActivity : ComponentActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
 
-        var qa = intent.extras!!.getParcelable<QuestionAnswer>("data")
-        //on api 33 or above
-        //var qa = intent.extras!!.getParcelable("data",QuestionAnswer::class.java)
+        var qa = QuestionAnswer() //default value if no data
+        if (intent?.extras?.containsKey("data") == true) {
+            //on api 32 or below
+            qa = intent.extras!!.getParcelable<QuestionAnswer>("data")!!
+            //on api 33 or above
+            //var qa = intent.extras!!.getParcelable("data",QuestionAnswer::class.java)
+        }
         setContent {
 
             var myAnswer by remember { mutableStateOf("") }
@@ -57,7 +61,7 @@ class AnswerActivity : ComponentActivity() {
                         Row(Modifier.align(alignment = Alignment.CenterHorizontally))
                         {
                             Text(
-                                text = qa?.question + "?",
+                                text = qa.question + "?",
                                 textAlign = TextAlign.Center,
                                 style = MaterialTheme.typography.labelMedium,
                                 fontSize = 22.sp

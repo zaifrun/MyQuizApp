@@ -124,7 +124,7 @@ class MainActivity : ComponentActivity() {
                                     val intent = Intent(context, AnswerActivity::class.java)
                                     intent.putExtra("data", question)
                                     //if you don't need a result back just have the following
-                                    //context.startActivity(intent)
+                                   // context.startActivity(intent)
                                     startLauncher.launch(intent)
                                 }) {
                                 Text(text = "Pose question", fontSize = 36.sp)
